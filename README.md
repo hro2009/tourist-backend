@@ -26,3 +26,11 @@ Use Node.js 20+, a persistent writable volume, and one app instance. Set `NODE_E
 Run `npm install` during the build and `npm start` as the start command. Seed the first database with `npm run seed`. Configure the payment provider and email variables only when those features are needed. Do not scale the SQLite deployment to multiple replicas.
 
 Run `npm test` for the API integration suite.
+
+## Free Render demo
+
+This repository includes a `render.yaml` Blueprint for a free web service. In Render, choose **New → Blueprint**, connect `hro2009/tourist-backend`, select the `main` branch, and enter an admin email and a unique strong admin password when prompted. Keep the generated `JWT_SECRET`.
+
+The free service sleeps after inactivity and has ephemeral storage. Its SQLite database and uploaded images can be lost when it sleeps, restarts, or redeploys. Use this only to preview the API; do not collect real bookings or rely on it for durable data. A persistent backend requires paid persistent storage or migrating the database and uploads to external services.
+
+After deployment, copy the service URL from Render. Set `window.HAYQ_API_BASE_URL` in the frontend repository's `config.js` to that exact URL and push the change. GitHub Pages will then redeploy the frontend. The frontend and API are on different sites, so browser privacy settings may prevent the cookie-based admin session from working reliably; the public catalog and booking API can still be tested when the service is awake.

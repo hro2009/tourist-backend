@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: hayq-tours-api
+    runtime: node
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: DATABASE_PATH
+        value: ./data/hayq.sqlite
+      - key: UPLOADS_DIR
+        value: ./uploads
+      - key: FRONTEND_ORIGINS
+        value: https://hro2009.github.io
+      - key: COOKIE_SAME_SITE
+        value: none
+      - key: PUBLIC_URL
+        value: https://hro2009.github.io/toursit-front
