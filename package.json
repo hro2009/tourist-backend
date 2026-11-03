@@ -1,0 +1,33 @@
+{
+  "name": "hayq-tours",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "seed": "node server/seed.js",
+    "backup": "node server/backup.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "bcryptjs": "3.0.2",
+    "better-sqlite3": "12.2.0",
+    "cors": "2.8.5",
+    "dotenv": "17.2.3",
+    "express": "5.1.0",
+    "express-rate-limit": "8.7.1",
+    "helmet": "8.1.0",
+    "jsonwebtoken": "9.0.2",
+    "lucide-static": "1.59.0",
+    "multer": "2.4.0",
+    "nodemailer": "10.1.7",
+    "zod": "4.1.12"
+  },
+  "devDependencies": {
+    "supertest": "7.1.4"
+  }
+}
