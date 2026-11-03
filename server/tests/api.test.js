@@ -308,6 +308,9 @@ test('public requests and remaining admin CRUD endpoints work', async () => {
   const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/ZAAAAABJRU5ErkJggg==', 'base64');
   const uploadedPhoto = await client.post(`/api/admin/tours/${tour.id}/photos`).attach('photos', png, { filename: 'tiny.png', contentType: 'image/png' });
   assert.equal(uploadedPhoto.status, 201);
+  const uploadedPhotoResponse = await request(app).get(uploadedPhoto.body.data[0].url).set('Origin', 'https://frontend.test');
+  assert.equal(uploadedPhotoResponse.status, 200);
+  assert.equal(uploadedPhotoResponse.headers['cross-origin-resource-policy'], 'cross-origin');
   assert.equal((await client.delete(`/api/admin/photos/${uploadedPhoto.body.data[0].id}`)).status, 200);
   const uploadedTourCardImage = await client.post(`/api/admin/tours/${tour.id}/card-image`).attach('photos', png, { filename: 'tour-card.png', contentType: 'image/png' });
   assert.equal(uploadedTourCardImage.status, 201);
