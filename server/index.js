@@ -73,7 +73,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api', (req, _res, next) => ['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method) ? publicPostLimit(req, _res, next) : next(), publicRouter);
 app.use('/uploads', helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }), express.static(uploadsDirectory, { maxAge: isProduction ? '7d' : 0, fallthrough: false }));
-app.get('/api/health', (_req, res) => res.json({ data: { status: 'ok' } }));
+app.get('/api/health', (_req, res) => res.json({ data: { status: 'ok', commit: process.env.RENDER_GIT_COMMIT || 'local' } }));
 app.use('/api', (_req, _res, next) => next(new ApiError(404, 'API endpoint not found.', 'NOT_FOUND')));
 app.use(sendError);
 

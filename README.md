@@ -33,4 +33,10 @@ This repository includes a `render.yaml` Blueprint for a free web service. In Re
 
 The free service sleeps after inactivity and has ephemeral storage. Its SQLite database and uploaded images can be lost when it sleeps, restarts, or redeploys. Use this only to preview the API; do not collect real bookings or rely on it for durable data. A persistent backend requires paid persistent storage or migrating the database and uploads to external services.
 
+## Staging API
+
+The separate `render.staging.yaml` Blueprint defines a free staging API on the `staging` branch. Create it once in Render using this repository, the `staging` branch, and Blueprint file path `render.staging.yaml`. It has its own generated JWT secret and admin password, separate SQLite path, and CORS allowlist for the staging website. Its database and uploads are also temporary, and additional free services may share the account's free instance-hour allowance.
+
+The public health endpoint includes the deployed Git commit so the frontend repository's `promote-prod.ps1` can confirm that staging and production are running the exact commits being promoted. Do not copy production secrets or data to staging.
+
 After deployment, copy the service URL from Render. Set `window.HAYQ_API_BASE_URL` in the frontend repository's `config.js` to that exact URL and push the change. GitHub Pages will then redeploy the frontend. The frontend and API are on different sites, so browser privacy settings may prevent the cookie-based admin session from working reliably; the public catalog and booking API can still be tested when the service is awake.

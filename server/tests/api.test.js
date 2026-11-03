@@ -67,6 +67,7 @@ test('public catalog endpoints return the seeded content', async () => {
     request(app).get('/api/tours'), request(app).get('/api/addons'), request(app).get('/api/services'), request(app).get('/api/settings'), request(app).get('/api/reviews'), request(app).get('/api/health')
   ]);
   assert.equal(tours.status, 200); assert.equal(tours.body.data.length, 6);
+  assert.equal(health.body.data.commit, process.env.RENDER_GIT_COMMIT || 'local');
   assert.equal(addons.body.data.length, 2); assert.equal(services.body.data.length, 6);
   assert.deepEqual(tours.body.data.map(item => item.name), [
     'Garni Temple and Geghard Monastery',

@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: hayq-tours-api-staging
+    runtime: node
+    plan: free
+    region: oregon
+    branch: staging
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        value: preview-admin@hayqtours.example
+      - key: ADMIN_PASSWORD
+        generateValue: true
+      - key: DATABASE_PATH
+        value: ./data/staging.sqlite
+      - key: UPLOADS_DIR
+        value: ./uploads
+      - key: FRONTEND_ORIGINS
+        value: https://hayq-tours-preview.onrender.com
+      - key: COOKIE_SAME_SITE
+        value: none
+      - key: PUBLIC_URL
+        value: https://hayq-tours-preview.onrender.com
